@@ -1,6 +1,7 @@
 package com.dsh.daniel.xierqi;
 
 import com.dsh.daniel.xierqi.domain.Commodity;
+import com.dsh.daniel.xierqi.domain.People;
 import com.dsh.daniel.xierqi.services.CommodityService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,5 +76,16 @@ public class CjsElasticsearchExampleApplicationTests {
         System.out.println(page.getTotalPages());
         System.out.println(page.getNumber());
         System.out.println(page.getContent());
+    }
+
+    @Test
+    public void testLombok(){
+        People people = new People(12.1, 12.1, "12", "man", "123123");
+        System.out.println(people.toString());
+    }
+
+    public static void main(String[] args) {
+        People people = new People(12.1, 12.1, "12", "man", "123123");
+        System.out.println(people.toString());
     }
 }
