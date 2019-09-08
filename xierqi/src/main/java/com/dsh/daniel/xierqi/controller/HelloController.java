@@ -1,11 +1,15 @@
 package com.dsh.daniel.xierqi.controller;
 
+import com.dsh.daniel.xierqi.annotation.PermissionCheck;
 import com.dsh.daniel.xierqi.domain.Commodity;
+import com.dsh.daniel.xierqi.domain.User;
 import com.dsh.daniel.xierqi.services.CommodityService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -100,5 +104,13 @@ public class HelloController {
         System.out.println(page.getNumber());
         System.out.println(page.getContent());
         return "testPage";
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    @PermissionCheck(resouceKey = "test")
+    public String test(@Validated @RequestBody User user) {
+        System.out.println("test annotation");
+        return "hello world";
     }
 }

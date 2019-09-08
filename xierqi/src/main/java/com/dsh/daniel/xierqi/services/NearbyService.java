@@ -221,7 +221,7 @@ public class NearbyService {
                 //原点、坐标，也就是tom老师的位置
                 .point(lon, lat)
                 //方圆多少米以内的数据
-                .distance("0"+unit, DistanceUnit.CENTIMETERS)
+                .distance("1000"+unit, DistanceUnit.METERS)
                 //设置计算规则，是平面还是立体 (方圆多少米)
                 .geoDistance(GeoDistance.PLANE);
         //给SearchRequestBuilder添加一个过滤条件

@@ -28,10 +28,11 @@ public class XierqiApplicationTests {
     public void contextLoads() {
     }
 
-    //	@Before
-    @Ignore
+//    @Before
+//    @Ignore
+//    @Test
     public void initData() {
-        int total = 100000;
+        int total = 10000;
         int inserted = 0;
         try {
             //建库，建表，建约束
