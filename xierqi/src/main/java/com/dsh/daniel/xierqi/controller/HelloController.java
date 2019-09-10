@@ -2,7 +2,9 @@ package com.dsh.daniel.xierqi.controller;
 
 import com.dsh.daniel.xierqi.annotation.PermissionCheck;
 import com.dsh.daniel.xierqi.domain.Commodity;
+import com.dsh.daniel.xierqi.domain.Response;
 import com.dsh.daniel.xierqi.domain.User;
+import com.dsh.daniel.xierqi.domain.VO.ResponseVO;
 import com.dsh.daniel.xierqi.services.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -108,9 +110,18 @@ public class HelloController {
 
     @RequestMapping("/test")
     @ResponseBody
-    @PermissionCheck(resouceKey = "test")
-    public String test(@Validated @RequestBody User user) {
+    @PermissionCheck(resourceKey = "test")
+    public ResponseVO<Void> test(@Validated @RequestBody User user) {
         System.out.println("test annotation");
-        return "hello world";
+        return Response.res_ok();
     }
+
+    @RequestMapping("/testPermission")
+    @ResponseBody
+    @PermissionCheck(resourceKey = "test1")
+    public ResponseVO<Void> testPermissionCheck(){
+        System.out.println("权限成功");
+        return Response.res_ok();
+    }
+
 }
