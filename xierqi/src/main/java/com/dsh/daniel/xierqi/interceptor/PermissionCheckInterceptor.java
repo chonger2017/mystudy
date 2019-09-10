@@ -29,7 +29,6 @@ public class PermissionCheckInterceptor extends HandlerInterceptorAdapter {
         if ("test".equals(resourceKey)) {
             return true;
         }
-        ResponseVO<Void> responseVO = new ResponseVO<>(401,null,"you aren't test user");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         JSONObject res = new JSONObject();
