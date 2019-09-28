@@ -1,10 +1,15 @@
 package com.dsh.mybatis.mybatisgenerator.aop.aspect;
 
+import com.dsh.mybatis.mybatisgenerator.enity.User;
+import com.dsh.mybatis.mybatisgenerator.service.IAuthService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 @Aspect
 @Component
@@ -17,6 +22,12 @@ public class LogAspect {
     @Before(value = "execution(* com.dsh.mybatis.mybatisgenerator.service.*.*(..))")
     public void before(JoinPoint joinpoint) {
         LOG.info("调用方法之前执行"+joinpoint);
+        Object[] args = joinpoint.getArgs();
+//        String kind = joinpoint.getKind();
+//        System.out.println("kind = " + kind);
+        User user = (User) args[0];
+        System.out.println(user.getAddress()+"_"+user.getLoginName()+"_"+user.getPassword());
+        Arrays.stream(args).forEach( e -> System.out.println(e));
     }
 
     @AfterReturning(EDP)
