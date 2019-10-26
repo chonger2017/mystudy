@@ -1,6 +1,8 @@
 package com.imooc.dataobject;
 
 import lombok.Data;
+
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import java.util.Date;
  * 2017-05-07 14:30
  */
 @Data
+@Table(name="product_category")
 public class ProductCategory implements Serializable {
 
     private static final long serialVersionUID = -2308267959836189694L;

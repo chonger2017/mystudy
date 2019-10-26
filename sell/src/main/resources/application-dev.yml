@@ -15,6 +15,7 @@ server:
   servlet:
     context-path: /sell
   port: 8081
+
 #logging:
 #  pattern:
 #    console: "%d - %msg%n"
@@ -35,19 +36,23 @@ wechat:
   templateId:
     orderStatus: e-Cqq67QxD6YNI41iRiqawEYdFavW_7pc7LyEMb-yeQ
 
-projectUrl:
+projecturl:
   wechatMpAuthorize: http://sell.natapp4.cc
   wechatOpenAuthorize: http://sell.natapp4.cc
   sell: http://sell.natapp4.cc
 logging:
   level:
     com.imooc.dataobject.mapper: trace
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-
 # 又拍云服务 见 https://console.upyun.com/services/file/
+# 操作员 chonger2017
+# 密码 doZphA8Yz4Iyp6E9lu4p7yd14X8qKlmC
+# 又拍云 服务名称 sell-dsh-upyun-com
 upyun:
   bucketName: XXX
   userName: xxx
   password: xxxx
   imageHost: http://xxx.com/
+mybatis:
+  configuration:
+    #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
