@@ -40,12 +40,12 @@
                             <td>${productInfo.categoryType}</td>
                             <td>${productInfo.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${productInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
+                            <td><a href="/sell/seller/product/index?productId=${productInfo.productId?c}">修改</a></td>
                             <td>
                                 <#if productInfo.getProductStatusEnum().message == "在架">
-                                    <a href="/sell/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
+                                    <a href="/sell/seller/product/off_sale?productId=${productInfo.productId?c}">下架</a>
                                 <#else>
-                                    <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
+                                    <a href="/sell/seller/product/on_sale?productId=${productInfo.productId?c}">上架</a>
                                 </#if>
                             </td>
                         </tr>

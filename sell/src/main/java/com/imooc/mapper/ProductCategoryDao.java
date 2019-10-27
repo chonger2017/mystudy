@@ -23,7 +23,7 @@ public interface ProductCategoryDao{
 
     @Insert("insert into product_category (category_name, category_type, create_time, update_time) " +
             "values(#{categoryName}, #{categoryType}, now(), now())")
-    ProductCategory save(@Param("productCategory") ProductCategory productCategory);
+    Integer save(ProductCategory productCategory);
 
     @UpdateProvider(method = "getUpdateProductCategorySql", type = GetProductCategorySql.class)
     void updateProductCategory(ProductCategory productCategory);

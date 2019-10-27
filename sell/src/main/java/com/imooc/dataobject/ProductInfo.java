@@ -15,7 +15,7 @@ import java.util.Date;
 public class ProductInfo implements Serializable {
     private static final long serialVersionUID = -6313145733109918625L;
 
-    private String productId;
+    private Integer productId;
 
     /** 名字. */
     private String productName;

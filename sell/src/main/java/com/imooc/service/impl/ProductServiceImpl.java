@@ -21,11 +21,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductInfoDao productInfoDao;
 
-    @Autowired
-    private UpYunConfig upYunConfig;
-
     @Override
-    public ProductInfo findOne(String productId) {
+    public ProductInfo findOne(Integer productId) {
         return productInfoDao.findOneById(productId);
     }
 
@@ -89,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInfo onSale(String productId) {
+    public ProductInfo onSale(Integer productId) {
         ProductInfo productInfo = productInfoDao.findOneById(productId);
         if (productInfo == null) {
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
@@ -105,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInfo offSale(String productId) {
+    public ProductInfo offSale(Integer productId) {
         ProductInfo productInfo = productInfoDao.findOneById(productId);
         if (productInfo == null) {
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);

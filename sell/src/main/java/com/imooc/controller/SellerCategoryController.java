@@ -60,7 +60,7 @@ public class SellerCategoryController {
 
     /**
      * 保存/更新
-     * @param form
+     * @param productCategory
      * @param bindingResult
      * @param map
      * @return
@@ -76,8 +76,11 @@ public class SellerCategoryController {
         }
 
         try {
-            System.out.println(productCategory);
-            categoryService.updateProductCategory(productCategory);
+            if (productCategory.getCategoryId() != null) {
+                categoryService.updateProductCategory(productCategory);
+            } else {
+                categoryService.save(productCategory);
+            }
         } catch (SellException e) {
             map.put("msg", e.getMessage());
             map.put("url", "/sell/seller/category/index");

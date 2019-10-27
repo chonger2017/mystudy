@@ -6,7 +6,6 @@ import com.imooc.exception.SellException;
 import com.imooc.service.CategoryService;
 import com.imooc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -54,7 +53,7 @@ public class SellerProductController {
      * @return
      */
     @RequestMapping("/on_sale")
-    public ModelAndView onSale(@RequestParam("productId") String productId,
+    public ModelAndView onSale(@RequestParam("productId") Integer productId,
                                Map<String, Object> map) {
         try {
             productService.onSale(productId);
@@ -75,7 +74,7 @@ public class SellerProductController {
      * @return
      */
     @RequestMapping("/off_sale")
-    public ModelAndView offSale(@RequestParam("productId") String productId,
+    public ModelAndView offSale(@RequestParam("productId") Integer productId,
                                 Map<String, Object> map) {
         try {
             productService.offSale(productId);
@@ -90,7 +89,7 @@ public class SellerProductController {
     }
 
     @GetMapping("/index")
-    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
+    public ModelAndView index(@RequestParam(value = "productId", required = false) Integer productId,
                               Map<String, Object> map) {
         if (!StringUtils.isEmpty(productId)) {
             ProductInfo productInfo = productService.findOne(productId);
@@ -118,7 +117,7 @@ public class SellerProductController {
 //    @CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
     public ModelAndView save(@ModelAttribute ProductInfo form,
                              BindingResult bindingResult,
-                             Map<String, Object> map, String productId) {
+                             Map<String, Object> map, Integer productId) {
         if (bindingResult.hasErrors()) {
             map.put("msg", bindingResult.getFieldError().getDefaultMessage());
             map.put("url", "/sell/seller/product/index");
@@ -127,7 +126,7 @@ public class SellerProductController {
 
         try {
             //如果productId为空, 说明是新增
-            if (!StringUtils.isEmpty(form.getProductId())) {
+            if (form.getProductId() != null) {
                 productService.update(form);
             } else {
                 form.setProductId(productId);

@@ -14,9 +14,9 @@ import java.util.List;
 public interface ProductInfoDao {
 
     @Select("select * from product_info where product_id = #{productId}")
-    ProductInfo findOneById(@Param("productId") String productId);
+    ProductInfo findOneById(@Param("productId") Integer productId);
 
-    @Select("select * from product_info where product_id = #{productStatus}")
+    @Select("select * from product_info where product_status = #{productStatus}")
     List<ProductInfo> findOneByStatus(@Param("productStatus") Integer productStatus);
 
     @Select("select * from product_info")
@@ -28,7 +28,7 @@ public interface ProductInfoDao {
     @Insert("insert into product_info (product_id,product_name,product_price,product_stock,product_description," +
             "product_icon,product_status,category_type,create_time,update_time) " +
             "values(#{productId}, #{productName}, #{productPrice}, #{productStock}, #{productDescription}, #{productIcon}, #{productStatus}, #{categoryType}, now(),now())")
-    void save(@Param("productInfo") ProductInfo productInfo);
+    void save(ProductInfo productInfo);
 
     @UpdateProvider(method = "getUpdateProductInfoSql", type = GetProductInfoSql.class)
     void updateProductInfo(ProductInfo productInfo);

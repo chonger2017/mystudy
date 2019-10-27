@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ProductCategory save(ProductCategory productCategory) {
+    public Integer save(ProductCategory productCategory) {
         return productCategoryDao.save(productCategory);
     }
 

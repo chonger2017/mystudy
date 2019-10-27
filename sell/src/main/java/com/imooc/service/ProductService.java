@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductInfo findOne(String productId);
+    ProductInfo findOne(Integer productId);
 
     /**
      * 查询所有在架商品列表
@@ -28,10 +28,10 @@ public interface ProductService {
     void decreaseStock(List<CartDTO> cartDTOList);
 
     //上架
-    ProductInfo onSale(String productId);
+    ProductInfo onSale(Integer productId);
 
     //下架
-    ProductInfo offSale(String productId);
+    ProductInfo offSale(Integer productId);
 
     Integer getCount();
 }
