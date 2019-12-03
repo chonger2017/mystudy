@@ -1,6 +1,6 @@
 package com.dsh.mybatis.mybatisgenerator.service.impl;
 
-import com.dsh.mybatis.mybatisgenerator.model.Member;
+import com.dsh.mybatis.mybatisgenerator.model.User;
 import com.dsh.mybatis.mybatisgenerator.service.IMemberManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class MemberManagerService implements IMemberManagerService {
      * @return boolean
      */
     @Override
-    public boolean add(Member member) {
+    public boolean add(User member) {
         LOG.info("增加用户");
         return true;
     }
@@ -28,7 +28,7 @@ public class MemberManagerService implements IMemberManagerService {
     }
 
     @Override
-    public boolean modify(Member member) {
+    public boolean modify(User member) {
         LOG.info("修改用户");
         return true;
     }

@@ -1,6 +1,6 @@
 package com.dsh.mybatis.mybatisgenerator.aop.aspect;
 
-import com.dsh.mybatis.mybatisgenerator.enity.Users;
+import com.dsh.mybatis.mybatisgenerator.model.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class LogAspect {
         Object[] args = joinpoint.getArgs();
 //        String kind = joinpoint.getKind();
 //        System.out.println("kind = " + kind);
-        Users user = (Users) args[0];
+        User user = (User) args[0];
 //        System.out.println(user.getAddress() + "_" + user.getLoginName() + "_" + user.getPassword());
         Arrays.stream(args).forEach(e -> System.out.println(e));
     }

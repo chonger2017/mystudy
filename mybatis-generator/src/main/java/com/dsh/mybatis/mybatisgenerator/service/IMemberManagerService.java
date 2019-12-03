@@ -1,14 +1,14 @@
 package com.dsh.mybatis.mybatisgenerator.service;
 
-import com.dsh.mybatis.mybatisgenerator.model.Member;
+import com.dsh.mybatis.mybatisgenerator.model.User;
 
 public interface IMemberManagerService {
 
-    public boolean add(Member member);
+    public boolean add(User member);
 
     public boolean remove(long id) throws Exception;
 
-    public boolean modify(Member member);
+    public boolean modify(User member);
 
     public boolean query(String loginName);
 }
