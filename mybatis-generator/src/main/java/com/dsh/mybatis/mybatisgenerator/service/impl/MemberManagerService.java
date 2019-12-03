@@ -12,7 +12,6 @@ public class MemberManagerService implements IMemberManagerService {
     private static Logger LOG = LoggerFactory.getLogger(MemberManagerService.class);
 
     /**
-     *
      * @param member member
      * @return boolean
      */

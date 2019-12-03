@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MybatisGeneratorApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = MybatisGeneratorApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MybatisGeneratorApplicationTests {
 
     @Autowired

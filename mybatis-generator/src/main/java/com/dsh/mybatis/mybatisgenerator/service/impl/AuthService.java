@@ -1,6 +1,6 @@
 package com.dsh.mybatis.mybatisgenerator.service.impl;
 
-import com.dsh.mybatis.mybatisgenerator.enity.User;
+import com.dsh.mybatis.mybatisgenerator.enity.Users;
 import com.dsh.mybatis.mybatisgenerator.model.Member;
 import com.dsh.mybatis.mybatisgenerator.service.IAuthService;
 import org.slf4j.Logger;
@@ -13,7 +13,7 @@ public class AuthService implements IAuthService {
     private static Logger LOG = LoggerFactory.getLogger(AuthService.class);
 
     @Override
-    public Member login(User user) {
+    public Member login(Users users) {
         LOG.info("用户登陆");
         return null;
     }
