@@ -14,3 +14,6 @@ spring:
       max-wait-millis: 200                                  # 等待连接获取的最大超时时间
 server:
   port: 8080
+mybatis:
+  type-aliases-package: com.dsh.mybatis.mybatisgenerator.mapper
+  mapper-locations: classpath:mybatisgenerator/mapper/*.xml

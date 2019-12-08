@@ -23,7 +23,7 @@ public class LogAspect {
         Object[] args = joinpoint.getArgs();
 //        String kind = joinpoint.getKind();
 //        System.out.println("kind = " + kind);
-        User user = (User) args[0];
+//        User user = (User) args[0];
 //        System.out.println(user.getAddress() + "_" + user.getLoginName() + "_" + user.getPassword());
         Arrays.stream(args).forEach(e -> System.out.println(e));
     }
