@@ -5,11 +5,18 @@ import com.dsh.mybatis.mybatisgenerator.response.ResponseVO;
 import com.dsh.mybatis.mybatisgenerator.service.IAuthService;
 import com.dsh.mybatis.mybatisgenerator.service.IMemberManagerService;
 import com.dsh.mybatis.mybatisgenerator.service.IUserService;
+import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -40,6 +47,13 @@ public class TestAPI {
     @RequestMapping("/getAll")
     public ResponseVO<List<User>> getAll() {
         ResponseVO<List<User>> response = null;
+        try {
+            InputStream configFile = new FileInputStream("E:/workspace");
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configFile);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return ResponseVO.respok(userService.getAll());
     }
 

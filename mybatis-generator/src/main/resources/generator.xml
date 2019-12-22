@@ -45,7 +45,7 @@
 
         <!-- 相关表的配置 -->
 
-        <table tableName="user" schema="general"
+        <table tableName="test" schema="general"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
