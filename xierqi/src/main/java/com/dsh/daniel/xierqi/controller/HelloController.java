@@ -23,7 +23,7 @@ public class HelloController {
     private CommodityService commodityService;
 
     @RequestMapping("/hello")
-    public String hello(){
+    public String hello() {
         return "hello";
     }
 
@@ -88,7 +88,7 @@ public class HelloController {
     @RequestMapping("/testGetAll")
     public String testGetAll() {
         Iterable<Commodity> iterable = commodityService.getAll();
-        iterable.forEach(e->System.out.println(e.toString()));
+        iterable.forEach(e -> System.out.println(e.toString()));
         return "testGetAll";
     }
 
@@ -119,7 +119,7 @@ public class HelloController {
     @RequestMapping("/testPermission")
     @ResponseBody
     @PermissionCheck(resourceKey = "test1")
-    public ResponseVO<Void> testPermissionCheck(){
+    public ResponseVO<Void> testPermissionCheck() {
         System.out.println("权限成功");
         return Response.res_ok();
     }

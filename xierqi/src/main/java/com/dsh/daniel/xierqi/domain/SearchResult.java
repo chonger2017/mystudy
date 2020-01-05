@@ -14,5 +14,5 @@ public class SearchResult {
 
     private String distance;
 
-    private List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();//数据集合
+    private List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();//数据集合
 }

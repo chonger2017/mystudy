@@ -20,7 +20,7 @@ public class SearchConfig {
     public TransportClient client() throws UnknownHostException {
         TransportAddress node = new TransportAddress(InetAddress.getByName(config.getIp()), config.getPort());
 
-        Settings settings = Settings.builder().put("cluster.name",config.getClusterName()).build();
+        Settings settings = Settings.builder().put("cluster.name", config.getClusterName()).build();
 
         TransportClient client = new PreBuiltTransportClient(settings);
         client.addTransportAddresses(node);

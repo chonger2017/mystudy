@@ -39,7 +39,7 @@ public class NearbyService {
     @Autowired
     private TransportClient client;
 
-    private String indexName="nearby";//相当于数据库名称
+    private String indexName = "nearby";//相当于数据库名称
     private String indexType = "wechat";//相当于数据表名称
 
     /**
@@ -65,7 +65,7 @@ public class NearbyService {
         //开启重复校验的缓存区
         RandomUtil.openCache();
 
-        for(long i=0; i<count; i++){
+        for (long i = 0; i < count; i++) {
             People people = randomPeople(myLat, myLon);
             contents.add(obj2Xcontent(people));
         }
@@ -78,7 +78,7 @@ public class NearbyService {
         for (XContentBuilder content : contents) {
 
             //请求往数据库.数据库表插入数据，相当于insert
-            IndexRequest request = client.prepareIndex(indexName,indexType).setSource(content).request();
+            IndexRequest request = client.prepareIndex(indexName, indexType).setSource(content).request();
             bulkRequest.add(request);
         }
 
@@ -99,8 +99,8 @@ public class NearbyService {
         //建库
         //建库建表建约束
         CreateIndexResponse createIndexResponse = client.admin().indices().prepareCreate(indexName).execute().actionGet();
-        if(!createIndexResponse.isAcknowledged()){
-            log.info("无法创建索引【"+indexName+"】");
+        if (!createIndexResponse.isAcknowledged()) {
+            log.info("无法创建索引【" + indexName + "】");
         }
 
         //建表
@@ -110,6 +110,7 @@ public class NearbyService {
 
     /**
      * 创建mapping，相当于创建表结构
+     *
      * @return
      */
     private XContentBuilder createMapping() {
@@ -123,7 +124,7 @@ public class NearbyService {
                     //昵称
                     .startObject("nickName").field("type", "string").endObject()
                     //性别
-                    .startObject("sex").field("type","string").endObject()
+                    .startObject("sex").field("type", "string").endObject()
                     //位置、坐标
                     .startObject("location").field("type", "geo_point").endObject()
                     .endObject().endObject();
@@ -141,13 +142,14 @@ public class NearbyService {
 
         String nickName = RandomUtil.randomNickName(sex);
 
-        double[] point = RandomUtil.randomPoint(myLat,myLon);
+        double[] point = RandomUtil.randomPoint(myLat, myLon);
 
-        return new People(point[0],point[1],wxNo,nickName,sex);
+        return new People(point[0], point[1], wxNo, nickName, sex);
     }
 
     /**
      * 将Java对象转换为JSON字符串（所谓的全文检索，玩的就是字符串）
+     *
      * @author 咕泡学院-Tom老师
      */
     private String obj2Json(People people) {
@@ -158,10 +160,10 @@ public class NearbyService {
             jsonBuild.startObject()
                     .field("wxNo", people.getWxNo())
                     .field("nickName", people.getNickName())
-                    .field("sex",people.getSex())
+                    .field("sex", people.getSex())
                     .startObject("location")
-                    .field("lat",people.getLat())
-                    .field("lon",people.getLon())
+                    .field("lat", people.getLat())
+                    .field("lon", people.getLon())
                     .endObject()
                     .endObject();
             jsonData = jsonBuild.toString();
@@ -180,8 +182,8 @@ public class NearbyService {
                     .field("nickName", people.getNickName())
                     .field("sex", people.getSex())
                     .startObject("location")
-                        .field("lat",people.getLat())
-                        .field("lon",people.getLon())
+                    .field("lat", people.getLat())
+                    .field("lon", people.getLon())
                     .endObject()
                     .endObject();
         } catch (IOException e) {
@@ -192,13 +194,14 @@ public class NearbyService {
 
     /**
      * 检索附近的人
+     *
      * @param lat
      * @param lon
      * @param radius
      * @param size
      * @author 咕泡学院-Tom老师
      */
-    public SearchResult search(double lat, double lon, int radius, int size, String sex){
+    public SearchResult search(double lat, double lon, int radius, int size, String sex) {
         SearchResult result = new SearchResult();
 
         String unit = DistanceUnit.METERS.toString();//坐标范围计量单位
@@ -221,7 +224,7 @@ public class NearbyService {
                 //原点、坐标，也就是tom老师的位置
                 .point(lon, lat)
                 //方圆多少米以内的数据
-                .distance("1000"+unit, DistanceUnit.METERS)
+                .distance("1000" + unit, DistanceUnit.METERS)
                 //设置计算规则，是平面还是立体 (方圆多少米)
                 .geoDistance(GeoDistance.PLANE);
         //给SearchRequestBuilder添加一个过滤条件
@@ -231,7 +234,7 @@ public class NearbyService {
         //sex 要么男、女
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
         //性别只有两种情况，要么男，要么女，世界没有不男不女的人
-        if(!(sex == null || "".equals(sex.trim()))){
+        if (!(sex == null || "".equals(sex.trim()))) {
             bq.must(QueryBuilders.matchQuery("sex", sex));
         }
         srb.setQuery(bq);
@@ -239,7 +242,7 @@ public class NearbyService {
         //差值最小的排在最前面
         //location asc
         //设置排序规则
-        GeoDistanceSortBuilder geoSort = SortBuilders.geoDistanceSort("location",lon,lat);
+        GeoDistanceSortBuilder geoSort = SortBuilders.geoDistanceSort("location", lon, lat);
         geoSort.unit(DistanceUnit.METERS);
         geoSort.order(SortOrder.ASC);
         //添加到SearchRequestBuilder
@@ -259,7 +262,7 @@ public class NearbyService {
         result.setTotal(hits.getTotalHits());
         result.setUseTime(usetime);
         result.setDistance(DistanceUnit.METERS.toString());
-        result.setData(new ArrayList<Map<String,Object>>());
+        result.setData(new ArrayList<Map<String, Object>>());
         for (SearchHit hit : searchHists) {
             // 获取距离值，并保留两位小数点
             BigDecimal geoDis = new BigDecimal((Double) hit.getSortValues()[0]);

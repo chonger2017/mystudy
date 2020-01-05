@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class CommodityServiceImpl implements CommodityService {
 
@@ -45,7 +46,7 @@ public class CommodityServiceImpl implements CommodityService {
         List<Commodity> list = new ArrayList<>();
         MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("name", name);
         Iterable<Commodity> iterable = commodityRepository.search(matchQueryBuilder);
-        iterable.forEach(e->list.add(e));
+        iterable.forEach(e -> list.add(e));
         return list;
     }
 

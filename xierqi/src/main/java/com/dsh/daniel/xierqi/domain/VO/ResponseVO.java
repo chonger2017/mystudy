@@ -20,11 +20,11 @@ public class ResponseVO<T> implements Serializable {
         this.message = message;
     }
 
-    public static<T> ResponseVO res_ok(){
+    public static <T> ResponseVO res_ok() {
         return new ResponseVO(ResponseCode.RESPONSE_OK.getCode(), null, ResponseCode.RESPONSE_OK.getMessage());
     }
 
-    public static<T> ResponseVO res_ok(T data){
+    public static <T> ResponseVO res_ok(T data) {
         return new ResponseVO(ResponseCode.RESPONSE_OK.getCode(), data, ResponseCode.RESPONSE_OK.getMessage());
     }
 

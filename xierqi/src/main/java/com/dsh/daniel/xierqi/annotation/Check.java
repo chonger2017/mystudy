@@ -18,6 +18,7 @@ public @interface Check {
 
     /**
      * 合法的参数值
+     *
      * @return
      */
     String[] paramValues();

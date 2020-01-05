@@ -32,8 +32,8 @@ public class PermissionCheckInterceptor extends HandlerInterceptorAdapter {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         JSONObject res = new JSONObject();
-        res.put("status","401");
-        res.put("message","need login");
+        res.put("status", "401");
+        res.put("message", "need login");
         res.put("data", "");
         PrintWriter out = null;
         try {

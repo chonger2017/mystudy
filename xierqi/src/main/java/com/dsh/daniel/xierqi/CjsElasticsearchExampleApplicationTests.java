@@ -61,7 +61,7 @@ public class CjsElasticsearchExampleApplicationTests {
     @Test
     public void testGetAll() {
         Iterable<Commodity> iterable = commodityService.getAll();
-        iterable.forEach(e->System.out.println(e.toString()));
+        iterable.forEach(e -> System.out.println(e.toString()));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class CjsElasticsearchExampleApplicationTests {
     }
 
     @Test
-    public void testLombok(){
+    public void testLombok() {
         People people = new People(12.1, 12.1, "12", "man", "123123");
         System.out.println(people.toString());
     }
