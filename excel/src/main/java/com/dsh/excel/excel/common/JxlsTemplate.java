@@ -2,8 +2,10 @@ package com.dsh.excel.excel.common;
 
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +26,12 @@ public abstract class JxlsTemplate {
     }
 
     public static void processTemplate(Class resourceBaseClass, String template, OutputStream out, Map<String, Object> params) throws IOException {
-        InputStream in = resourceBaseClass.getResourceAsStream(TEMPLATE_DIR + template);
+        ApplicationHome h = new ApplicationHome(resourceBaseClass);
+        String dirPath = h.getSource().getParentFile().toString();
+        System.out.println(dirPath+"/classes/"+TEMPLATE_DIR+template);
+        String path = dirPath + "/classes/" + TEMPLATE_DIR + template;
+        InputStream in = new FileInputStream(path);
+//        InputStream in = resourceBaseClass.getResourceAsStream(TEMPLATE_DIR + template);
         if (null == in) {
           System.out.println("can't find excel template by path:" + TEMPLATE_DIR + template);
         }
