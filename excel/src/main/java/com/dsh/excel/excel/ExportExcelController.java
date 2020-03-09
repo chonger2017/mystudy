@@ -8,6 +8,7 @@ import com.dsh.excel.model.User;
 import com.dsh.excel.service.IDepartmentService;
 import com.dsh.excel.service.ITestService;
 import com.dsh.excel.service.IUserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jxls.area.Area;
 import org.jxls.builder.AreaBuilder;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -113,25 +115,40 @@ public class ExportExcelController extends JxlsTemplate {
     }
 
     public List<Department> generateList() {
-        List<Department> clist1 = Arrays.asList(
-                new Department(4,"CCC1",2, "aaa1",1),
-                new Department(5,"CCC2",2, "aaa1",1)
-        );
-        List<Department> clist2 = Arrays.asList(
+        List<Department> list = Arrays.asList(
+                new Department(1, "AAA1", 0, "aaa1", 1),
+                new Department(2, "BBB1", 1, "bbb1", 1),
+                new Department(3, "BBB2", 1, "bbb2", 1),
+                new Department(4, "CCC1", 2, "ccc1", 1),
+                new Department(5, "CCC2", 2, "ccc2", 1),
                 new Department(6, "CCC3", 3, "ccc3", 1),
-                new Department(7, "CCC4", 3, "ccc4", 1));
-        Department b1 = new Department(2, "BBB1", 1, "bbb1", 1);
-        b1.setList(clist1);
-        Department b2 = new Department(3, "BBB2", 1, "bbb2", 1);
-        b2.setList(clist2);
-        Department a1 = new Department(1, "AAA1", 0, "aaa1", 1);
-        List<Department> l1 = Arrays.asList(b1, b2);
-        a1.setList(l1);
-        List<Department> blist2 = Arrays.asList( new Department(9,"BBB3",8, "aaa1",1),
-                new Department(10,"BBB4",8, "aaa1",1));
-        Department a2 = new Department(11, "AAA2", 8, "aaa2", 1);
-        a2.setList(blist2);
-        List<Department> list = Arrays.asList(a1,a2);
-        return list;
+                new Department(7, "CCC4", 3, "ccc4", 1),
+                new Department(8, "AAA2", 0, "aaa2", 1),
+                new Department(9, "BBB3", 8, "bbb3", 1),
+                new Department(10, "BBB4", 8, "bbb4", 1)
+        );
+        return listToTree(list);
+    }
+
+    public List<Department> listToTree(List<Department> oldlist) {
+        Map<Integer, Department> map = oldlist.stream().collect(Collectors.toMap(Department::getId, ele -> ele));
+        List<Department> newlist = new ArrayList<>();
+        for (Department temp : oldlist) {
+            Department parent = map.get(temp.getFatherId());
+            if (parent != null) {
+                if (CollectionUtils.isEmpty(parent.getList())) {
+                    List<Department> ch = new ArrayList<>();
+                    ch.add(temp);
+                    parent.setList(ch);
+                } else {
+                    List<Department> ch = parent.getList();
+                    ch.add(temp);
+                    parent.setList(ch);
+                }
+            } else {
+                newlist.add(temp);
+            }
+        }
+        return newlist;
     }
 }
