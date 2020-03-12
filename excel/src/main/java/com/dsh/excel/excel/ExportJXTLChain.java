@@ -2,6 +2,8 @@ package com.dsh.excel.excel;
 
 import com.dsh.excel.excel.common.ExportFileChain;
 import org.jxls.common.Context;
+import org.jxls.expression.JexlExpressionEvaluator;
+import org.jxls.transform.Transformer;
 import org.jxls.util.JxlsHelper;
 import org.springframework.stereotype.Component;
 
@@ -20,23 +22,25 @@ import static java.lang.System.out;
  * @create 2020-03-12_0:04
  */
 @Component
-public class ExportDataProvider extends ExportFileChain {
+public class ExportJXTLChain extends ExportFileChain {
+
+
     @Override
     public void export2(InputStream in, OutputStream os, Map<String, String[]> parameter) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map = getBusiness(parameter);
+        map = exportDataProvider.getBusinessData(parameter);
         Context context = new Context();
         if (map != null) {
             for (String key : map.keySet()) {
                 context.putVar(key, map.get(key));
             }
         }
-        JxlsHelper instance = JxlsHelper.getInstance();
-        JxlsHelper.getInstance().processTemplate(in, os, context);
-    }
-
-
-    public Map<String, Object> getBusiness(Map<String, String[]> objectMap) throws Exception {
-        return null;
+        JxlsHelper jxlsHelper = JxlsHelper.getInstance();
+        Transformer transformer  = jxlsHelper.createTransformer(in, os);
+        JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator)transformer.getTransformationConfig().getExpressionEvaluator();
+//        Map<String, Object> funcs = new HashMap<String, Object>();
+//        funcs.put("jx", new JxlsUtil());    //添加自定义功能
+//        evaluator.getJexlEngine().setFunctions(funcs);
+        jxlsHelper.processTemplate(context, transformer);
     }
 }

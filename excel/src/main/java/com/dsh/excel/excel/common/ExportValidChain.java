@@ -1,5 +1,6 @@
 package com.dsh.excel.excel.common;
 
+import com.dsh.excel.util.SpringContextUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @create 2020-03-11_22:25
  */
 public abstract class ExportValidChain extends ExportChain{
-    private Map<String, String[]> parameter;
+    protected ExportDataProvider exportDataProvider;
 
     @Override
     public void export(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,11 +25,16 @@ public abstract class ExportValidChain extends ExportChain{
 
     private void validParameter(HttpServletRequest request) {
         Map<String, String[]> map = request.getParameterMap();
-        String[] exportTemplate = (String[]) map.get("exportTemplate");
-        if (exportTemplate == null) {
+        String[] exportTemplate =  map.get("exportTemplate");
+        if (exportTemplate == null || StringUtils.isBlank(exportTemplate[0])) {
             throw new RuntimeException("exportTemplate is null");
         }
-        this.parameter = map;
+        String[] exportDataParam = map.get("exportDataProvider");
+        if (exportDataProvider == null || StringUtils.isBlank(exportDataParam[0])) {
+            throw new RuntimeException("exportDataProvider is null");
+        }
+        String beanName = exportDataParam[0];
+        exportDataProvider = SpringContextUtils.getBean(beanName, ExportDataProvider.class);
     }
 
     public abstract void export1(HttpServletRequest request, HttpServletResponse response) throws Exception;

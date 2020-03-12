@@ -5,10 +5,7 @@ import org.springframework.boot.system.ApplicationHome;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -24,6 +21,8 @@ public abstract class ExportFileChain extends ExportValidChain{
     private InputStream in;
 
     private OutputStream os;
+
+    private File tempFile;
 
     @Override
     public void export1(HttpServletRequest request, HttpServletResponse response) throws Exception {
