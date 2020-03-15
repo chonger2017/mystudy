@@ -1,7 +1,6 @@
 package com.dsh.excel.excel;
 
 import com.dsh.excel.excel.common.GroupRowCommand;
-import com.dsh.excel.excel.common.JxlsTemplate;
 import com.dsh.excel.model.Department;
 import com.dsh.excel.model.Test;
 import com.dsh.excel.model.User;
@@ -39,7 +38,7 @@ import java.util.stream.Collectors;
  */
 @RequestMapping("/excel")
 @Controller
-public class ExportExcelController extends JxlsTemplate {
+public class ExportExcelController{
     @Autowired
     private IUserService userService;
 
@@ -70,7 +69,7 @@ public class ExportExcelController extends JxlsTemplate {
             response.setHeader("Pragma", "public");
             response.setContentType("application/x-excel;charset=UTF-8");
             out = response.getOutputStream();
-            JxlsTemplate.processTemplate(exportTemplate, out, params);
+//            JxlsTemplate.processTemplate(exportTemplate, out, params);
             out.flush();
             out.close();
         } catch (IOException e) {

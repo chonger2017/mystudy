@@ -9,6 +9,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @Description
@@ -18,17 +19,30 @@ import java.util.Map;
 public abstract class ExportFileChain extends ExportValidChain{
     private final static String SOURCE_DIR = "/classes/excel/";
 
-    private InputStream in;
+    protected InputStream in;
 
-    private OutputStream os;
+    protected OutputStream os;
 
     private File tempFile;
+
+    protected String suffix;
 
     @Override
     public void export1(HttpServletRequest request, HttpServletResponse response) throws Exception {
         createFileInputStream(request);
-        export2(in, os, request.getParameterMap());
-        closeInputStream();
+        createTempFile();
+        createOutputStream();
+        export2(response, request.getParameterMap());
+    }
+
+    public void createTempFile() {
+        ApplicationHome h = new ApplicationHome(ExportFileChain.class);
+        Map<String, String[]> param = this.parameters;
+        String fileName = param.get("exportTemplate")[0];
+        this.suffix = fileName.substring(fileName.indexOf("."), fileName.length());
+        String dirPath = h.getSource().getParentFile().toString();
+        String path = dirPath + "/" + UUID.randomUUID() + "/"+System.currentTimeMillis()+suffix;
+        tempFile = new File(path);
     }
 
     public void createFileInputStream(HttpServletRequest request) throws Exception {
@@ -43,44 +57,13 @@ public abstract class ExportFileChain extends ExportValidChain{
         }
     }
 
-    public void setOutputStream(HttpServletResponse response) throws IOException {
-        os = response.getOutputStream();
-    }
-
-    public InputStream getInputStream() {
-        return in;
-    }
-
-    public OutputStream getOutputStream() {
-        return os;
-    }
-
-    public void serResponseFile(HttpServletResponse response) {
-        String fileName = getFileName();
-        response.setHeader("Expires", "0");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+".xlsx\"");
-        response.setHeader("Pragma", "public");
-        response.setContentType("application/x-excel;charset=UTF-8");
-    }
-
-    private String getFileName() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-        String format = sdf.format(new Date());
-        return format;
-    }
-
-    private void closeInputStream() {
-        if (in != null) {
-            try {
-                in.close();
-                os.flush();
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void createOutputStream() {
+        try {
+            os = new FileOutputStream(tempFile);
+        } catch (FileNotFoundException e) {
         }
     }
 
-    public abstract void export2(InputStream in, OutputStream os, Map<String, String[]> parameter) throws Exception;
+
+    public abstract void export2(HttpServletResponse response, Map<String, String[]> parameter) throws Exception;
 }

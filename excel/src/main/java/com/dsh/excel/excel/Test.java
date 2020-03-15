@@ -17,8 +17,11 @@ import java.util.stream.Collectors;
 public class Test {
 
     public static void main(String[] args) {
-        List<Department> list = generateList();
-        System.out.println(list);
+        /*List<Department> list = generateList();
+        System.out.println(list);*/
+        String file = "aa.xlsx";
+        String substring = file.substring(file.indexOf("."), file.length());
+        System.out.println(substring);
     }
 
     public static List<Department> generateList() {

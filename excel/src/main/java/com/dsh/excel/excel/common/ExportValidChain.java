@@ -17,6 +17,8 @@ import java.util.Map;
 public abstract class ExportValidChain extends ExportChain{
     protected ExportDataProvider exportDataProvider;
 
+    protected Map<String, String[]> parameters;
+
     @Override
     public void export(HttpServletRequest request, HttpServletResponse response) throws Exception {
         validParameter(request);
@@ -33,6 +35,7 @@ public abstract class ExportValidChain extends ExportChain{
         if (exportDataProvider == null || StringUtils.isBlank(exportDataParam[0])) {
             throw new RuntimeException("exportDataProvider is null");
         }
+        this.parameters = map;
         String beanName = exportDataParam[0];
         exportDataProvider = SpringContextUtils.getBean(beanName, ExportDataProvider.class);
     }
