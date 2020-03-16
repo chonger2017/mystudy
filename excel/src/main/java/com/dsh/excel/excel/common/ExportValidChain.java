@@ -32,7 +32,7 @@ public abstract class ExportValidChain extends ExportChain{
             throw new RuntimeException("exportTemplate is null");
         }
         String[] exportDataParam = map.get("exportDataProvider");
-        if (exportDataProvider == null || StringUtils.isBlank(exportDataParam[0])) {
+        if (exportDataParam == null || StringUtils.isBlank(exportDataParam[0])) {
             throw new RuntimeException("exportDataProvider is null");
         }
         this.parameters = map;

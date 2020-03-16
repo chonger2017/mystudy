@@ -23,7 +23,7 @@ public abstract class ExportFileChain extends ExportValidChain{
 
     protected OutputStream os;
 
-    private File tempFile;
+    protected File tempFile;
 
     protected String suffix;
 
@@ -33,6 +33,7 @@ public abstract class ExportFileChain extends ExportValidChain{
         createTempFile();
         createOutputStream();
         export2(response, request.getParameterMap());
+        close();
     }
 
     public void createTempFile() {
@@ -64,6 +65,37 @@ public abstract class ExportFileChain extends ExportValidChain{
         }
     }
 
+    private void closeInputStream() {
+        try {
+            if (in != null) {
+                in.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeOutputStream() {
+        try {
+            if (os != null) {
+                os.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deletefile() {
+        tempFile.delete();
+    }
+
+    private void close() {
+        closeOutputStream();
+        closeInputStream();
+        deletefile();
+    }
 
     public abstract void export2(HttpServletResponse response, Map<String, String[]> parameter) throws Exception;
+
+
 }
