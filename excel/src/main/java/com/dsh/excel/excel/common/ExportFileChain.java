@@ -42,8 +42,13 @@ public abstract class ExportFileChain extends ExportValidChain{
         String fileName = param.get("exportTemplate")[0];
         this.suffix = fileName.substring(fileName.indexOf("."), fileName.length());
         String dirPath = h.getSource().getParentFile().toString();
-        String path = dirPath + "/" + UUID.randomUUID() + "/"+System.currentTimeMillis()+suffix;
+        String path = dirPath + "/" + UUID.randomUUID() +suffix;
         tempFile = new File(path);
+        try {
+            tempFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createFileInputStream(HttpServletRequest request) throws Exception {

@@ -27,8 +27,7 @@ public class ExportResponseChain extends ExportFileChain {
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(tempFile));
         ServletOutputStream out = response.getOutputStream();
         xssfWorkbook.write(out);
-        out.flush();
-        out.close();
+        response.flushBuffer();
     }
 
     public void serResponseFile(HttpServletResponse response, String fileName) {
