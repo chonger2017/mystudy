@@ -25,8 +25,6 @@ public abstract class ExportFileChain extends ExportValidChain{
 
     protected File tempFile;
 
-    protected String suffix;
-
     @Override
     public void export1(HttpServletRequest request, HttpServletResponse response) throws Exception {
         createFileInputStream(request);
@@ -40,7 +38,7 @@ public abstract class ExportFileChain extends ExportValidChain{
         ApplicationHome h = new ApplicationHome(ExportFileChain.class);
         Map<String, String[]> param = this.parameters;
         String fileName = param.get("exportTemplate")[0];
-        this.suffix = fileName.substring(fileName.indexOf("."), fileName.length());
+        String suffix = fileName.substring(fileName.indexOf("."), fileName.length());
         String dirPath = h.getSource().getParentFile().toString();
         String path = dirPath + "/" + UUID.randomUUID() +suffix;
         tempFile = new File(path);

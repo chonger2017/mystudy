@@ -1,8 +1,6 @@
 package com.dsh.excel.excel.common;
 
 import com.dsh.excel.util.JxlsUtil;
-import jxl.Workbook;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +18,7 @@ import java.util.Map;
 public class ExportResponseChain extends ExportFileChain {
     @Override
     public void export2(HttpServletResponse response, Map<String, String[]> parameter) throws Exception {
-        String fileName = this.exportDataProvider.getFileName()+suffix;
+        String fileName = this.exportDataProvider.getFileName();
         serResponseFile(response, fileName);
         Map<String, Object> businessData = this.exportDataProvider.getBusinessData(parameter);
         JxlsUtil.exportExcel(this.in, this.os, businessData);

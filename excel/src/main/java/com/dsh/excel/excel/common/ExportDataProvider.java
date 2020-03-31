@@ -14,7 +14,7 @@ public abstract class ExportDataProvider {
 
     public String getFileName() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-        String format = sdf.format(new Date());
+        String format = sdf.format(new Date()) + ".xlsx";
         return format;
     }
 }
