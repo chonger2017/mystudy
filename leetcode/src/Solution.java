@@ -1,9 +1,7 @@
+import com.sun.jmx.remote.internal.ArrayQueue;
 import javafx.util.Pair;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Description
@@ -486,13 +484,65 @@ public class Solution {
         return getDepth(root, 0);
     }
 
-    public static void main(String[] args) {
-        /*TreeNode head = new TreeNode(1);
-        buildTree(head, 1);
-        head.left.right.val = 4;
-        head.right.left.val = 4;
-        int res = maxDepth(head);
-        System.out.println(res);*/
+    public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = null;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        while (queue.size() > 0) {
+            list = new ArrayList<>();
+            int len = queue.size();
+            for (int i = 0; i < len; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                list.add(node.val);
+            }
+            res.add(0, list);
+        }
+        return res;
+    }
 
+    public static void buildBTS(int left, int right, int[] nums, TreeNode root) {
+        if (left > right) {
+            return;
+        }
+        int middle = (left + right)/2;
+        int leftM = (left + middle - 1)/2;
+        int rightM = (middle + right + 1)/2;
+        if (middle >= leftM) {
+            root.left = new TreeNode(nums[leftM]);
+            buildBTS(left, leftM, nums, root.left);
+        }
+        if (middle <= rightM) {
+            root.right = new TreeNode(nums[rightM]);
+            buildBTS(rightM, right, nums, root.right);
+        }
+        return;
+    }
+
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        if (nums.length == 0) {
+            return null;
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        int middle = (left + right)/2;
+        TreeNode root = new TreeNode(nums[middle]);
+        buildBTS(left, right, nums, root);
+        return root;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{-10, -3, 0, 5, 8};
+        TreeNode node = sortedArrayToBST(nums);
+        System.out.println(node);
     }
 }
