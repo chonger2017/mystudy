@@ -2,6 +2,7 @@ package com.dsh.mybatis.mybatisgenerator.service.impl;
 
 import com.dsh.mybatis.mybatisgenerator.mapper.UserMapper;
 import com.dsh.mybatis.mybatisgenerator.model.User;
+import com.dsh.mybatis.mybatisgenerator.model.param.UserVO;
 import com.dsh.mybatis.mybatisgenerator.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class UserService implements IUserService {
     @Override
     public List<User> getAll() {
         return userMapper.selectAll();
+    }
+
+    @Override
+    public List<User> getUser(UserVO userVO) {
+        return null;
     }
 }

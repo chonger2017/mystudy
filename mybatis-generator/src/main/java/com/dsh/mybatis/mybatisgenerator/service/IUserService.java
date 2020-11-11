@@ -1,6 +1,7 @@
 package com.dsh.mybatis.mybatisgenerator.service;
 
 import com.dsh.mybatis.mybatisgenerator.model.User;
+import com.dsh.mybatis.mybatisgenerator.model.param.UserVO;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface IUserService {
     List<User> getAll();
+
+    List<User> getUser(UserVO userVO);
 }

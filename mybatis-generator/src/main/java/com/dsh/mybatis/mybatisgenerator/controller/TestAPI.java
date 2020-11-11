@@ -1,6 +1,7 @@
 package com.dsh.mybatis.mybatisgenerator.controller;
 
 import com.dsh.mybatis.mybatisgenerator.model.User;
+import com.dsh.mybatis.mybatisgenerator.model.param.UserVO;
 import com.dsh.mybatis.mybatisgenerator.response.ResponseVO;
 import com.dsh.mybatis.mybatisgenerator.service.IAuthService;
 import com.dsh.mybatis.mybatisgenerator.service.IMemberManagerService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -57,4 +60,8 @@ public class TestAPI {
         return ResponseVO.respok(userService.getAll());
     }
 
+    @RequestMapping(value = "/getUsers", method=RequestMethod.POST)
+    public ResponseVO<List<User>> getUser(@RequestBody @Valid UserVO userVO) {
+        return ResponseVO.respok(userService.getUser(userVO));
+    }
 }

@@ -35,4 +35,10 @@
     select id, username, email, grade, passwd
     from user
   </select>
+  <select id="getUser" resultMap="BaseResultMap">
+    select id, username, email, grade, passwd
+    from user where
+    id = #{userVO.id}
+    and passwd = #{userVO.password}
+  </select>
 </mapper>
