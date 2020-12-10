@@ -5,16 +5,16 @@
 <generatorConfiguration>
 
     <!-- 本地数据库驱动程序jar包的全路径 -->
-    <classPathEntry
+  <!--  <classPathEntry
             location="E:\\maven\\repository\\mysql\\mysql-connector-java\\5.1.46\\mysql-connector-java-5.1.46.jar"/>
     <context id="context" defaultModelType="flat" targetRuntime="MyBatis3Simple">
-        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        &lt;!&ndash; beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； &ndash;&gt;
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
 
-        <!-- 数据库的相关配置 -->
+        &lt;!&ndash; 数据库的相关配置 &ndash;&gt;
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
                 connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"
@@ -25,25 +25,25 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <!-- 实体类生成的位置 -->
+        &lt;!&ndash; 实体类生成的位置 &ndash;&gt;
         <javaModelGenerator
                 targetPackage="com.dsh.excel.model"
                 targetProject=".\src\main\java">
         </javaModelGenerator>
 
-        <!-- *Mapper.xml 文件的位置  sqlMapGenerator-->
+        &lt;!&ndash; *Mapper.xml 文件的位置  sqlMapGenerator&ndash;&gt;
         <sqlMapGenerator
                 targetPackage="mapper"
                 targetProject=".\src\main\resources">
         </sqlMapGenerator>
 
-        <!-- Mapper 接口文件的位置 -->
+        &lt;!&ndash; Mapper 接口文件的位置 &ndash;&gt;
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.dsh.excel.mapper"
                              targetProject=".\src\main\java">
         </javaClientGenerator>
 
-        <!-- 相关表的配置 -->
+        &lt;!&ndash; 相关表的配置 &ndash;&gt;
 
         <table tableName="department" schema="general"
                enableCountByExample="false"
@@ -52,5 +52,5 @@
                enableUpdateByExample="false">
             <property name="useActualColumnNames" value="true" />
         </table>
-    </context>
+    </context>-->
 </generatorConfiguration>
