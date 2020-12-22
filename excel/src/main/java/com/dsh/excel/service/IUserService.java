@@ -1,6 +1,7 @@
 package com.dsh.excel.service;
 
 import com.dsh.excel.model.User;
+import com.dsh.excel.model.UserBean;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface IUserService {
     List<User> getAll();
+
+    void register(UserBean userBean);
 }

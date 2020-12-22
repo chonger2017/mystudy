@@ -1,6 +1,7 @@
 package com.dsh.excel.controller;
 
 import com.dsh.excel.model.User;
+import com.dsh.excel.model.UserBean;
 import com.dsh.excel.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @Description
@@ -35,5 +33,13 @@ public class UserController {
         HashMap<String, String> ele = new HashMap<>();
         ele.put("111", "111");
         return userService.getAll();
+    }
+
+    @RequestMapping("/register")
+    public void register() {
+        UserBean userBean = new UserBean();
+        userBean.setName("Tom");
+        userBean.setPassword("aaaaa");
+        userService.register(userBean);
     }
 }
